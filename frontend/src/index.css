@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50: #F5F3EE;
+  --color-brand-100: #EBE7DD;
+  --color-brand-200: #D6CFC0;
+  --color-brand-300: #B5AB94;
+  --color-brand-400: #8A7F68;
+  --color-brand-500: #5A5647;
+  --color-brand-600: #3D3A30;
+  --color-brand-700: #262B3D;
+  --color-brand-800: #171B2B;
+  --color-brand-900: #0B0F1A;
+
+  --color-accent-400: #E89478;
+  --color-accent-500: #D97757;
+  --color-accent-600: #B85A3E;
+
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes spin-orbit {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+.animate-spin-orbit {
+  animation: spin-orbit 3s linear infinite;
+  transform-origin: 50% 7px;
+}
