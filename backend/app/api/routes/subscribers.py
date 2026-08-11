@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from app.db.subscribers_repo import create_subscriber, deactivate_subscriber_by_token
 from app.models.subscriber import SubscriberCreate
 
-router = APIRouter(prefix="/subscribers", tags=["subscribers"])
+router = APIRouter(prefix="/api/subscribers", tags=["subscribers"])
 
 
 @router.post("/")

@@ -4,7 +4,7 @@ from fastapi import APIRouter
 
 from app.db.articles_repo import get_all_grouped
 
-router = APIRouter(prefix="/articles", tags=["articles"])
+router = APIRouter(prefix="/api/articles", tags=["articles"])
 
 
 @router.get("/grouped")
