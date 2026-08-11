@@ -5,6 +5,8 @@ import ArticleCard from '../components/ArticleCard';
 import SectionTabs from '../components/SectionTabs';
 import SubscribeForm from '../components/SubscribeForm';
 import EpochLogo from '../components/EpochLogo';
+import { useScrollGlow } from '../hooks/useScrollGlow';
+import { useSaudiClock } from '../hooks/useSaudiClock';
 
 const SECTION_LABELS = {
   new_models: 'New Models',
@@ -21,12 +23,27 @@ function HomePage() {
   const { data, loading, error } = useArticles();
   const [activeSection, setActiveSection] = useState('new_models');
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+  const scrollProgress = useScrollGlow();
+  const { date, time } = useSaudiClock();
   const navigate = useNavigate();
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-brand-900 p-8 text-center text-brand-300">
-        Loading...
+      <div className="min-h-screen bg-brand-900 p-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="overflow-hidden rounded-lg border border-brand-700 bg-brand-800">
+                <div className="h-56 w-full animate-pulse bg-brand-700" />
+                <div className="flex flex-col gap-3 p-6">
+                  <div className="h-3 w-1/3 animate-pulse rounded bg-brand-700" />
+                  <div className="h-4 w-full animate-pulse rounded bg-brand-700" />
+                  <div className="h-4 w-2/3 animate-pulse rounded bg-brand-700" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
@@ -47,11 +64,24 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-brand-900 p-8">
-      <div className="mb-6 flex items-center justify-between">
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: `radial-gradient(circle at 50% 100%, rgba(217, 119, 87, ${0.05 + scrollProgress * 0.22}) 0%, rgba(217, 119, 87, 0) ${30 + scrollProgress * 45}%)`,
+        }}
+      />
+
+      <div className="relative z-10 mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <EpochLogo className="h-9 w-9" />
           <h1 className="font-serif text-4xl font-bold text-brand-50">Epoch</h1>
         </div>
+
+        <div className="hidden text-center md:block">
+          <div className="font-serif text-6xl font-bold tabular-nums text-accent-500">{time}</div>
+          <div className="mt-1.5 text-sm font-semibold uppercase tracking-wide text-brand-400">{date} — Riyadh</div>
+        </div>
+
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowSubscribeModal(true)}
@@ -62,7 +92,7 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <div className="py-22 text-center">
           <div className="mb-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent-400">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-500 animate-pulse" />
@@ -108,12 +138,15 @@ function HomePage() {
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md rounded-lg border border-brand-700 bg-brand-800 p-6"
+              className="relative w-full max-w-md overflow-hidden rounded-2xl border border-brand-700 bg-brand-800 p-9"
             >
+              <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full border border-accent-500/15" />
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full border border-accent-500/10" />
+
               <button
                 type="button"
                 onClick={() => setShowSubscribeModal(false)}
-                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-2xl leading-none text-brand-400 hover:text-brand-200"
+                className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full text-2xl leading-none text-brand-400 hover:text-brand-200"
                 aria-label="Close"
               >
                 ×

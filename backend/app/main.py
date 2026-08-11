@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes.articles import router as articles_router
+from app.api.routes.cron import router as cron_router
 from app.api.routes.subscribers import router as subscribers_router
 
 app = FastAPI(title="AI News Aggregator")
@@ -31,6 +32,7 @@ app.add_middleware(
 
 app.include_router(articles_router)
 app.include_router(subscribers_router)
+app.include_router(cron_router)
 
 
 @app.get("/api/health")

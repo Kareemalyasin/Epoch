@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     openai_api_key: str
     openai_model: str = "gpt-4o-mini"
     resend_api_key: str
+    cron_secret: str
     environment: str = "development"
 
     model_config = SettingsConfigDict(env_file=".env")

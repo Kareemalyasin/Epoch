@@ -25,7 +25,7 @@ export default function ArticleCard({ article, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer overflow-hidden rounded-lg border border-brand-700 bg-brand-800 transition-colors hover:border-brand-500"
+      className="min-h-[300px] cursor-pointer overflow-hidden rounded-lg border border-brand-700 bg-brand-800 transition-colors hover:border-brand-500"
     >
       {showImage &&
         (isFallbackLogo ? (
@@ -46,11 +46,11 @@ export default function ArticleCard({ article, onClick }) {
           />
         ))}
       <div className={`flex flex-col gap-3 p-6 ${showImage ? 'pt-6' : ''}`}>
-        <span className="text-xs font-semibold uppercase tracking-wide text-accent-400">
+        <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
           {source_name}
         </span>
         <h3 className="font-serif text-xl font-semibold leading-snug text-brand-50">{title}</h3>
-        <p className="text-sm text-brand-300">{hook}</p>
+        <p className="line-clamp-2 text-sm text-brand-300">{hook}</p>
         <span className="text-xs text-brand-500">{formattedDate}</span>
       </div>
     </div>
