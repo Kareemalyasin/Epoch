@@ -24,5 +24,15 @@
         "service": "frontend"
       }
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/run-pipeline",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/send-digest",
+      "schedule": "0 6 * * *"
+    }
   ]
 }
